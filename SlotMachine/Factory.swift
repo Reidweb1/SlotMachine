@@ -10,39 +10,33 @@ import Foundation
 import UIKit
 
 class Factory {
-	class func createSlots() -> [[Slot]] {
+	class func createSlots () -> [[Slot]] {
+		
 		let kNumberOfSlots = 3
 		let kNumberOfContainers = 3
-		
 		var slots: [[Slot]] = []
-		
-		for (var containerNumber = 0; containerNumber < kNumberOfContainers; containerNumber++) {
-			var slotArray: [Slot] = []
-			for (var slotNumber = 0; slotNumber < kNumberOfSlots; slotNumber++) {
+		for var containerNumber = 0; containerNumber < kNumberOfContainers; ++containerNumber {
+			var slotArray:[Slot] = []
+			for var slotNumber = 0; slotNumber < kNumberOfSlots; ++slotNumber {
 				var slot = Factory.createSlot(slotArray)
 				slotArray.append(slot)
 			}
 			slots.append(slotArray)
 		}
-		
 		return slots
 	}
 	
-	class func createSlot (currentCards: [Slot]) -> Slot {
+	class func createSlot (currentCards : [Slot]) -> Slot {
 		var currentCardValues:[Int] = []
 		for slot in currentCards {
 			currentCardValues.append(slot.value)
 		}
-		
 		var randomNumber = Int(arc4random_uniform(UInt32(13)))
-		
 		while contains(currentCardValues, randomNumber) {
 			randomNumber = Int(arc4random_uniform(UInt32(13)))
 		}
-		
-		var slot: Slot
-		
-		switch (randomNumber) {
+		var slot:Slot
+		switch randomNumber {
 		case 0:
 			slot = Slot(value: 1, image: UIImage(named: "Ace"), isRed: true)
 		case 1:
@@ -70,9 +64,8 @@ class Factory {
 		case 12:
 			slot = Slot(value: 13, image: UIImage(named: "King"), isRed: true)
 		default:
-			slot = Slot(value: 1, image: UIImage(named: "Ace"), isRed: true)
+			slot = Slot(value: 0, image: UIImage(named: "Ace"), isRed: true)
 		}
-		
 		return slot
 	}
 }
